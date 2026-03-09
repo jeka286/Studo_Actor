@@ -1,0 +1,42 @@
+.skills-section {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.skills-header {
+    color: #3563E9;
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 40px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.skills-grid {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.skill-card {
+    width: 305px;
+    height: 501px;
+    border: 2px solid #9AB1F4;
+    padding: 25px;
+    box-sizing: border-box;
+}
+
+.skill-title {
+    color: #333333;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.skill-description {
+    color: #666666;
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: 'Montserrat', sans-serif;
+}
