@@ -1,18 +1,11 @@
 // footer.js
-class FooterComponent {
-    constructor(containerId) {
-        this.container = document.getElementById(containerId);
-        this.init();
+class FooterComponent extends HTMLElement {
+    constructor() {
+        super();
     }
 
-    init() {
-        if (this.container) {
-            this.render();
-        }
-    }
-
-    render() {
-        this.container.innerHTML = `
+    connectedCallback() {
+        this.innerHTML = `
             <footer class="footer">
                 <div class="footer__container">
                     <h3 class="footer__title">Studio actor</h3>
@@ -55,9 +48,5 @@ class FooterComponent {
     }
 }
 
-// Автоматическая инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-    if (document.getElementById('footer-component')) {
-        new FooterComponent('footer-component');
-    }
-});
+// Регистрируем кастомный элемент
+customElements.define('my-footer', FooterComponent);
