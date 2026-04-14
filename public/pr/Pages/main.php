@@ -262,6 +262,76 @@
         .modal-footer a:hover {
             text-decoration: underline;
         }
+
+        /* СТИЛИ ДЛЯ ФУТЕРА */
+        .footer {
+            background: white;
+            border-top: 1px solid #eee;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+            width: 100%;
+        }
+
+        .footer__container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .footer__title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #195ad4;
+            margin-bottom: 8px;
+        }
+
+        .footer__subtitle {
+            color: #666;
+            margin-bottom: 32px;
+        }
+
+        .footer__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer__column-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #195ad4;
+            margin-bottom: 16px;
+        }
+
+        .footer__links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer__links li {
+            margin-bottom: 8px;
+        }
+
+        .footer__links a {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer__links a:hover {
+            color: #195ad4;
+        }
+
+        .footer__bottom {
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -377,7 +447,8 @@
 <!-- Футер как web-компонент -->
 <my-footer></my-footer>
 
-<script src="footer.js"></script>
+<!-- Подключаем скрипт футера -->
+<script src="./footer.js"></script>
 
 <script>
     function openModal(type) {

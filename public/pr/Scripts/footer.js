@@ -1,5 +1,5 @@
 // footer.js
-class FooterComponent extends HTMLElement {
+class MyFooter extends HTMLElement {
     constructor() {
         super();
     }
@@ -49,4 +49,4 @@ class FooterComponent extends HTMLElement {
 }
 
 // Регистрируем кастомный элемент
-customElements.define('my-footer', FooterComponent);
+customElements.define('my-footer', MyFooter);
