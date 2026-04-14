@@ -1,42 +1,45 @@
+/* skills.css */
 .skills-section {
-    max-width: 1200px;
-    margin: 60px auto;
-    padding: 0 20px;
+    padding: 0 40px;
 }
 
-.skills-header {
-    color: #3563E9;
-    font-size: 32px;
-    font-weight: 600;
-    margin-bottom: 40px;
-    font-family: 'Montserrat', sans-serif;
+.section-title {
+    color: #4a6cf7;
+    font-size: 28px;
+    margin-bottom: 30px;
 }
 
-.skills-grid {
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 40px 25px;
     display: flex;
-    gap: 30px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 280px;
+    transition: transform 0.3s, border-color 0.3s;
 }
 
-.skill-card {
-    width: 305px;
-    height: 501px;
-    border: 2px solid #9AB1F4;
-    padding: 25px;
-    box-sizing: border-box;
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #4a6cf7;
 }
 
-.skill-title {
-    color: #333333;
-    font-size: 24px;
-    font-weight: 600;
+.card h3 {
+    font-size: 19px;
     margin-bottom: 20px;
-    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
 }
 
-.skill-description {
-    color: #666666;
-    font-size: 16px;
-    line-height: 1.5;
-    font-family: 'Montserrat', sans-serif;
+.card p {
+    font-size: 14px;
+    color: #555;
 }
+
+

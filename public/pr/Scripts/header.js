@@ -1,17 +1,17 @@
-class MyHeader extends HTMLElement {
-    connectedCallback() {
-        this.innerHTML = `
-        <header class="main-header">
-            <div class="header-container">
-                <h1 class="studio-title">STUDIO ACTOR</h1>
-                <div class="auth-buttons">
-                    <a href="#" class="btn">Вход</a>
-                    <a href="#" class="btn">Регистрация</a>
-                </div>
-            </div>
-        </header>
-        `;
-    }
+const openBtn = document.getElementById('openLogin');
+const modal = document.getElementById('loginModal');
+const closeBtn = document.getElementById('closeModal');
+
+openBtn.onclick = function() {
+    modal.style.display = "flex";
 }
 
-customElements.define('my-header', MyHeader);
+closeBtn.onclick = function() {
+    modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}

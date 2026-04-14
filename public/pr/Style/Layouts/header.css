@@ -1,42 +1,41 @@
-.main-header {
-    width: 100%;
-    padding: 20px 0;
-    background: white;
-}
-
-.header-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+/* header.css */
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 20px 40px;
+    margin-bottom: 40px;
 }
 
-.studio-title {
-    color: #3563E9;
-    font-size: 48px;
-    font-weight: 700;
-    margin: 0;
-    font-family: 'Playfair Display', serif;
+.logo h1 {
+    color: #4a6cf7;
+    font-size: 24px;
+    text-transform: uppercase;
 }
 
-.auth-buttons {
-    display: flex;
-    gap: 30px;
+.logo p {
+    font-size: 12px;
+    color: #888;
 }
 
-.btn {
-    color: #3563E9;
-    font-size: 20px;
-    font-weight: 500;
-    text-decoration: none;
-    font-family: 'Montserrat', sans-serif;
-    background: none;
-    border: none;
+/* Базовый вид кнопок (как на картинке) */
+.auth-buttons .btn {
+    border: 2px solid #4a6cf7; /* Темно-синий контур */
+    background-color: transparent; /* Прозрачный фон */
+    color: #0b0a0a; /* Серый цвет текста */
+    padding: 10px 25px;
+    border-radius: 30px; /* Скругленные края */
     cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease; /* Плавный переход цвета */
 }
 
-.btn:hover {
-    text-decoration: underline;
+/* Эффект при наведении (инверсия) */
+.auth-buttons .btn:hover {
+    background-color: #4a6cf7; /* Синий фон при наведении */
+    color: #ffffff; /* Белый текст при наведении */
 }
+
+
+
+

@@ -1,473 +1,281 @@
+<?php
+session_start();
+
+// Обработка выхода
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header('Location: main.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STUDIO ACTOR</title>
-    <style>
-        /* Базовые сбросы */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-            background: #f9f9f9;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Шапка с кнопками */
-        .main-header {
-            background: white;
-            border-bottom: 1px solid #eee;
-            padding: 16px 0;
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .studio-title {
-            font-size: 24px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: #195ad4;
-            margin: 0;
-        }
-
-        .auth-buttons {
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn {
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
-            border: none;
-            transition: 0.2s;
-        }
-
-        .btn-login {
-            background: transparent;
-            color: #195ad4;
-            border: 1px solid #195ad4;
-        }
-
-        .btn-login:hover {
-            background: #f0f0f0;
-        }
-
-        .btn-register {
-            background: transparent;
-            color: #195ad4;
-            border: 1px solid #195ad4;
-        }
-
-        .btn-register:hover {
-            background: #f0f0f0;
-        }
-
-        /* Секция навыков */
-        .skills-section {
-            max-width: 1200px;
-            margin: 60px auto;
-            padding: 0 24px;
-            flex: 1;
-        }
-
-        .skills-header {
-            text-align: center;
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 48px;
-            color: #195ad4;
-        }
-
-        /* Горизонтальные карточки */
-        .skills-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
-            justify-content: center;
-            color: #195ad4;
-        }
-
-        .skill-card {
-            flex: 1 1 220px;
-            min-width: 220px;
-            max-width: 280px;
-            background: white;
-            padding: 28px 20px;
-            border-radius: 24px;
-            box-shadow: 0 10px 25px rgba(35, 64, 153, 0.03);
-            border: 1px solid #2642c0;
-            transition: 0.2s;
-        }
-
-        .skill-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 30px rgba(146, 24, 24, 0.05);
-            border-color: #2642c0;
-        }
-
-        .skill-title {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            color: #040404;
-        }
-
-        .skill-description {
-            font-size: 16px;
-            line-height: 1.5;
-            color: #040404;
-            margin: 0;
-        }
-
-        /* Модальные окна */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 32px;
-            padding: 40px;
-            width: 100%;
-            max-width: 480px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .modal-title {
-            font-size: 32px;
-            font-weight: 700;
-            color: #195ad4;
-            margin-bottom: 8px;
-        }
-
-        .modal-subtitle {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 32px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 16px 20px;
-            border: 1px solid #ddd;
-            border-radius: 16px;
-            font-size: 16px;
-            transition: 0.2s;
-            background: #f8f8f8;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #195ad4;
-            background: white;
-        }
-
-        .form-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #666;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .checkbox-label input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-
-        .forgot-link {
-            color: #195ad4;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .forgot-link:hover {
-            text-decoration: underline;
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 16px;
-            background: #195ad4;
-            color: white;
-            border: none;
-            border-radius: 16px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 24px;
-            transition: 0.2s;
-        }
-
-        .btn-submit:hover {
-            background: #0e3a9e;
-        }
-
-        .modal-footer {
-            text-align: center;
-            color: #666;
-            font-size: 15px;
-        }
-
-        .modal-footer a {
-            color: #195ad4;
-            text-decoration: none;
-            font-weight: 500;
-            margin-left: 4px;
-        }
-
-        .modal-footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* СТИЛИ ДЛЯ ФУТЕРА */
-        .footer {
-            background: white;
-            border-top: 1px solid #eee;
-            padding: 40px 0 20px;
-            margin-top: 60px;
-            width: 100%;
-        }
-
-        .footer__container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        .footer__title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #195ad4;
-            margin-bottom: 8px;
-        }
-
-        .footer__subtitle {
-            color: #666;
-            margin-bottom: 32px;
-        }
-
-        .footer__grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer__column-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #195ad4;
-            margin-bottom: 16px;
-        }
-
-        .footer__links {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .footer__links li {
-            margin-bottom: 8px;
-        }
-
-        .footer__links a {
-            color: #666;
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.2s;
-        }
-
-        .footer__links a:hover {
-            color: #195ad4;
-        }
-
-        .footer__bottom {
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            text-align: center;
-            color: #888;
-            font-size: 14px;
-        }
-    </style>
+    <title>Studio Actor | Главная</title>
+    
+    <!-- Твои стили -->
+    <link rel="stylesheet" href="../Style/Global/fonts.css">
+    <link rel="stylesheet" href="../Style/Layouts/header.css">
+    <link rel="stylesheet" href="../Style/Layouts/footer.css">
+    <link rel="stylesheet" href="../Style/Components/skills.css">
+    <link rel="stylesheet" href="../Style/Components/modal.css">
 </head>
 <body>
+    <?php
+    $host = '127.0.1.30'; 
+    $user = 'root';      
+    $pass = '';          
+    $db_name = 'Golubko'; 
 
-<!-- Шапка с кнопками входа и регистрации -->
-<header class="main-header">
-    <div class="header-container">
-        <h1 class="studio-title">STUDIO ACTOR</h1>
+    $conn = mysqli_connect($host, $user, $pass, $db_name);
+
+    if (!$conn) {
+        die("Ошибка подключения: " . mysqli_connect_error());
+    }
+    ?>
+    <header class="header">
+        <div class="logo">
+            <h1>Studio actor</h1>
+            <p>Студия Актера</p>
+        </div>
         <div class="auth-buttons">
-            <button class="btn btn-login" onclick="openModal('login')">Войти</button>
-            <button class="btn btn-register" onclick="openModal('register')">Регистрация</button>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <a href="dashboard.php" class="btn" style="text-decoration: none; display: inline-block; line-height: normal;">Личный кабинет</a>
+                <a href="?logout=1" class="btn" style="text-decoration: none; display: inline-block; line-height: normal; background: #ff4757;">Выйти</a>
+            <?php else: ?>
+                <button class="btn" id="openLogin">Войти</button>
+                <button class="btn" id="openRegister">Зарегистрироваться</button>
+            <?php endif; ?>
         </div>
-    </div>
-</header>
+    </header>
 
-<section class="skills-section">
-    <h2 class="skills-header">Навыки, которые ты прокачаешь</h2>
+    <main class="skills-section">
+        <h2 class="section-title">Навыки, которые ты прокачаешь</h2>
+        
+        <div class="cards-container">
+            <div class="card">
+                <h3>Пластика и движение</h3>
+                <p>Перестанешь бояться своего тела, обретешь пластичность и координацию.</p>
+            </div>
+            <div class="card">
+                <h3>Четкая дикция</h3>
+                <p>Сделаем голос звонким, а речь чистой, чтобы тебя слушали с открытым ртом.</p>
+            </div>
+            <div class="card">
+                <h3>Живые эмоции</h3>
+                <p>Научишься вызывать любую эмоцию по заказу и управлять чувствами зрителя.</p>
+            </div>
+            <div class="card">
+                <h3>Полная концентрация</h3>
+                <p>Сможешь забыть о зажимах и панике на сцене, будешь в моменте.</p>
+            </div>
+        </div>
+    </main>
+
     
-    <div class="skills-grid">
-        <!-- Пластика и движение -->
-        <div class="skill-card">
-            <h3 class="skill-title">Пластика и движение</h3>
-            <p class="skill-description">
-                Сценическое движение: Перестань бояться своего тела, обретешь пластичность и координацию
-            </p>
-        </div>
 
-        <!-- Четкая дикция -->
-        <div class="skill-card">
-            <h3 class="skill-title">Четкая дикция</h3>
-            <p class="skill-description">
-                Техника речи и дикция: Сделаем голос звонким, а речь чистой, чтобы тебя слушали с открытым ртом
-            </p>
-        </div>
+    <!-- Модальное окно ВХОДА -->
+    <div id="loginModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <button class="close-btn" id="closeLogin">&times;</button>
+            
+            <h2 class="modal-title" style="color: #4a6cf7; text-align: center; margin-bottom: 5px;">Вход в аккаунт</h2>
+            <p class="modal-subtitle" style="color: #999; text-align: center; font-size: 12px; margin-bottom: 25px;">Введите свои данные для входа в сервис</p>
 
-        <!-- Живые эмоции -->
-        <div class="skill-card">
-            <h3 class="skill-title">Живые эмоции</h3>
-            <p class="skill-description">
-                Эмоциональный интеллект: Научишься вызывать любую эмоцию по заказу и управлять чувствами зрителя
-            </p>
-        </div>
+            <form class="modal-form" id="loginForm">
+                <div class="modal-field" style="display: flex; flex-direction: column; margin-bottom: 15px;">
+                    <label style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">Email</label>
+                    <input type="email" id="loginEmail" name="email" required placeholder="example@mail.com" style="padding: 10px; border: 1px solid #dce4f5; border-radius: 8px; outline: none;">
+                </div>
+                
+                <div class="modal-field" style="display: flex; flex-direction: column; margin-bottom: 15px; position: relative;">
+                    <label style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">Password</label>
+                    <input type="password" id="loginPassword" name="password" required placeholder="••••••••" style="padding: 10px; border: 1px solid #dce4f5; border-radius: 8px; outline: none;">
+                    <a href="#" style="color: #4a6cf7; text-decoration: none; font-size: 11px; align-self: flex-end; margin-top: 5px;">Забыли пароль?</a>
+                </div>
 
-        <!-- Полная концентрация -->
-        <div class="skill-card">
-            <h3 class="skill-title">Полная концентрация</h3>
-            <p class="skill-description">
-                Актерская концентрация: Сможешь забыть о зажимах и панике на сцене, будешь в моменте здесь и сейчас
+                <div class="modal-options" style="display: flex; align-items: center; gap: 8px; margin: 20px 0;">
+                    <input type="checkbox" id="remember">
+                    <label for="remember" style="color: #154add; font-size: 13px;">Запомнить меня</label>
+                </div>
+
+                <button type="submit" id="loginSubmitBtn" style="width: 80%; margin: 0 auto; display: block; background: #4a6cf7; color: white; border: none; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: bold;">Войти</button>
+            </form>
+
+            <p style="text-align: center; margin-top: 20px; font-size: 12px; color: #999;">
+                Нет аккаунта? <a href="#" id="linkToRegister" style="color: #4a6cf7; text-decoration: none; font-weight: bold;">Зарегистрируйтесь</a>
             </p>
         </div>
     </div>
-</section>
 
-<!-- Модальное окно регистрации -->
-<div class="modal" id="registerModal">
-    <div class="modal-content">
-        <h2 class="modal-title">Создать аккаунт</h2>
-        <p class="modal-subtitle">Заполните форму для регистрации</p>
-        
-        <form>
-            <div class="form-group">
-                <input type="text" placeholder="First & Last Name" required>
-            </div>
-            <div class="form-group">
-                <input type="email" placeholder="Email" required>
-            </div>
-            <div class="form-group">
-                <input type="password" placeholder="Password" required>
-            </div>
-            <div class="form-group">
-                <input type="password" placeholder="Confirm Password" required>
-            </div>
+
+
+    
+    <!-- Модальное окно РЕГИСТРАЦИИ -->
+    <div id="registerModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <button class="close-btn" id="closeRegister">&times;</button>
             
-            <button type="submit" class="btn-submit">Зарегистрироваться</button>
-            
-            <div class="modal-footer">
-                Уже есть аккаунт? <a href="#" onclick="switchModal('login')">Войти</a>
-            </div>
-        </form>
+            <h2 class="modal-title" style="color: #4a6cf7; text-align: center; margin-bottom: 5px;">Создать аккаунт</h2>
+            <p class="modal-subtitle" style="color: #999; text-align: center; font-size: 12px; margin-bottom: 25px;">Заполните форму для регистрации</p>
+
+            <form class="modal-form" id="registerForm">
+                <div class="modal-field" style="display: flex; flex-direction: column; margin-bottom: 15px;">
+                    <label style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">First & Last Name</label>
+                    <input type="text" id="fullname" name="fullname" required placeholder="Иван Иванов" style="padding: 10px; border: 1px solid #dce4f5; border-radius: 8px; outline: none;">
+                </div>
+
+                <div class="modal-field" style="display: flex; flex-direction: column; margin-bottom: 15px;">
+                    <label style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="example@mail.com" style="padding: 10px; border: 1px solid #dce4f5; border-radius: 8px; outline: none;">
+                </div>
+                
+                <div class="modal-field" style="display: flex; flex-direction: column; margin-bottom: 15px;">
+                    <label style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">Password</label>
+                    <input type="password" id="password" name="password" required placeholder="••••••••" style="padding: 10px; border: 1px solid #dce4f5; border-radius: 8px; outline: none;">
+                </div>
+
+                <div class="modal-field" style="display: flex; flex-direction: column; margin-bottom: 15px;">
+                    <label style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">Confirm Password</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required placeholder="••••••••" style="padding: 10px; border: 1px solid #dce4f5; border-radius: 8px; outline: none;">
+                </div>
+
+                <button type="submit" id="registerSubmitBtn" style="width: 80%; margin: 0 auto; display: block; background: #4a6cf7; color: white; border: none; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: bold;">Зарегистрироваться</button>
+            </form>
+
+            <p style="text-align: center; margin-top: 20px; font-size: 12px; color: #999;">
+                Уже есть аккаунт? <a href="#" id="linkToLogin" style="color: #4a6cf7; text-decoration: none; font-weight: bold;">Войти</a>
+            </p>
+        </div>
     </div>
-</div>
 
-<!-- Модальное окно входа -->
-<div class="modal" id="loginModal">
-    <div class="modal-content">
-        <h2 class="modal-title">Вход в аккаунт</h2>
-        <p class="modal-subtitle">Введите свои данные для входа в сервис</p>
-        
-        <form>
-            <div class="form-group">
-                <input type="email" placeholder="Email" required>
-            </div>
-            <div class="form-group">
-                <input type="password" placeholder="Password" required>
-            </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginModal = document.getElementById('loginModal');
+            const registerModal = document.getElementById('registerModal');
+            const registerForm = document.getElementById('registerForm');
+            const loginForm = document.getElementById('loginForm');
+
+            // Открытие окон
+            const openLoginBtn = document.getElementById('openLogin');
+            const openRegisterBtn = document.getElementById('openRegister');
             
-            <div class="form-row">
-                <label class="checkbox-label">
-                    <input type="checkbox"> Запомнить меня
-                </label>
-                <a href="#" class="forgot-link">Забыли пароль?</a>
-            </div>
+            if (openLoginBtn) {
+                openLoginBtn.onclick = (e) => { e.preventDefault(); loginModal.style.display = 'flex'; };
+            }
+            if (openRegisterBtn) {
+                openRegisterBtn.onclick = (e) => { e.preventDefault(); registerModal.style.display = 'flex'; };
+            }
+
+            // Закрытие окон
+            const closeLogin = document.getElementById('closeLogin');
+            const closeRegister = document.getElementById('closeRegister');
+            if (closeLogin) closeLogin.onclick = () => { loginModal.style.display = 'none'; };
+            if (closeRegister) closeRegister.onclick = () => { registerModal.style.display = 'none'; };
+
+            // Переключение между окнами
+            const linkToRegister = document.getElementById('linkToRegister');
+            const linkToLogin = document.getElementById('linkToLogin');
             
-            <button type="submit" class="btn-submit">Войти</button>
+            if (linkToRegister) {
+                linkToRegister.onclick = (e) => {
+                    e.preventDefault();
+                    loginModal.style.display = 'none';
+                    registerModal.style.display = 'flex';
+                };
+            }
             
-            <div class="modal-footer">
-                Нет аккаунта? <a href="#" onclick="switchModal('register')">Зарегистрируйтесь</a>
-            </div>
-        </form>
-    </div>
-</div>
+            if (linkToLogin) {
+                linkToLogin.onclick = (e) => {
+                    e.preventDefault();
+                    registerModal.style.display = 'none';
+                    loginModal.style.display = 'flex';
+                };
+            }
 
-<!-- Футер как web-компонент -->
-<my-footer></my-footer>
+            // Обработка ВХОДА
+            if (loginForm) {
+                loginForm.onsubmit = async (e) => {
+                    e.preventDefault();
+                    
+                    const email = document.getElementById('loginEmail').value;
+                    const password = document.getElementById('loginPassword').value;
+                    
+                    const formData = new FormData();
+                    formData.append('email', email);
+                    formData.append('password', password);
+                    
+                    try {
+                        const response = await fetch('login.php', {
+                            method: 'POST',
+                            body: formData
+                        });
+                        
+                        const result = await response.json();
+                        
+                        if (result.success) {
+                            alert(result.message);
+                            window.location.href = 'dashboard.php';
+                        } else {
+                            alert(result.message);
+                        }
+                    } catch (error) {
+                        alert('Ошибка при входе: ' + error.message);
+                    }
+                    
+                    return false;
+                };
+            }
 
-<!-- Подключаем скрипт футера -->
-<script src="./footer.js"></script>
-
-<script>
-    function openModal(type) {
-        document.getElementById('registerModal').classList.remove('active');
-        document.getElementById('loginModal').classList.remove('active');
-        document.getElementById(type + 'Modal').classList.add('active');
-    }
-
-    function switchModal(type) {
-        openModal(type);
-    }
-
-    // Закрытие модального окна при клике вне его
-    window.onclick = function(event) {
-        if (event.target.classList.contains('modal')) {
-            event.target.classList.remove('active');
-        }
-    }
-</script>
-
+            // Обработка РЕГИСТРАЦИИ
+            if (registerForm) {
+                registerForm.onsubmit = async (e) => {
+                    e.preventDefault();
+                    
+                    const fullname = document.getElementById('fullname').value;
+                    const email = document.getElementById('email').value;
+                    const password = document.getElementById('password').value;
+                    const confirm_password = document.getElementById('confirm_password').value;
+                    
+                    if (password !== confirm_password) {
+                        alert('Пароли не совпадают!');
+                        return false;
+                    }
+                    
+                    const formData = new FormData();
+                    formData.append('fullname', fullname);
+                    formData.append('email', email);
+                    formData.append('password', password);
+                    formData.append('confirm_password', confirm_password);
+                    
+                    try {
+                        const response = await fetch('register.php', {
+                            method: 'POST',
+                            body: formData
+                        });
+                        
+                        const result = await response.json();
+                        
+                        if (result.success) {
+                            alert(result.message);
+                            registerModal.style.display = 'none';
+                            loginModal.style.display = 'flex';
+                            registerForm.reset();
+                        } else {
+                            alert(result.message);
+                        }
+                    } catch (error) {
+                        alert('Ошибка при регистрации: ' + error.message);
+                    }
+                    
+                    return false;
+                };
+            }
+        });
+    </script>
 </body>
+<?php include 'footer.php'; ?>
 </html>

@@ -1,0 +1,136 @@
+/* modal.css */
+
+/* Фон, который затемняет страницу */
+.modal-overlay {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный */
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(2px); /* Легкое размытие заднего фона */
+}
+
+/* Сама карточка окна */
+.modal-card {
+    background: #fff;
+    padding: 35px 30px;
+    border-radius: 15px;
+    width: 380px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Кнопка закрытия (крестик) */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: 1px solid #eee;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    color: #999;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.close-btn:hover {
+    background: #f5f5f5;
+    color: #333;
+}
+
+/* Заголовок "Вход в аккаунт" */
+.modal-title {
+    color: #4a6cf7;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Подзаголовок */
+.modal-subtitle {
+    color: #888;
+    text-align: center;
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+/* Поля ввода (Email, Password) */
+.modal-field {
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-field label {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+.modal-field input {
+    padding: 12px;
+    border: 1px solid #dce4f5;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.modal-field input:focus {
+    border-color: #4a6cf7;
+}
+
+/* Синие ссылки */
+.blue-link {
+    color: #4a6cf7;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.blue-link:hover {
+    text-decoration: underline;
+}
+
+/* Чекбокс "Запомнить меня" */
+.modal-options {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Кнопка "Войти" */
+.blue-submit-btn {
+    width: 85%;
+    margin: 0 auto;
+    display: block;
+    background: #4a6cf7;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.blue-submit-btn:hover {
+    background: #3553d1;
+}

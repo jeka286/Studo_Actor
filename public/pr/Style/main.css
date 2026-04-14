@@ -153,8 +153,13 @@ p {
     }
 }
 
+   
 @media (max-width: 480px) {
     .footer-grid {
         grid-template-columns: 1fr;
     }
 }
+
+
+    .btn-card:hover { background: #3a5ce0; }
+        .footer { display: flex; justify-content: space-between; padding: 60px 0; border-top: 1px solid #f0f0f0; }

@@ -1,69 +1,97 @@
-/* Стили для футера - добавьте это в конец секции style */
-.footer {
-    background: white;
-    border-top: 1px solid #eee;
-    padding: 40px 0 20px;
-    margin-top: 60px;
-    width: 100%;
+/* Общие настройки футера */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-.footer__container {
+.footer {
+    margin-top: auto;
+}
+.footer {
+    background-color: #ffffff;
+    padding: 60px 0;
+    border-top: 1px solid #e0e0e0;
+    font-family: 'Inter', sans-serif; /* Или твой основной шрифт */
+    margin-top: 50px;
+}
+
+/* Контейнер для выравнивания в ряд */
+.footer-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 24px;
+    display: flex;
+    justify-content: space-between; /* Растягивает блоки по краям */
+    align-items: flex-start;
+    padding: 0 20px;
 }
 
-.footer__title {
+/* Блок с логотипом */
+.footer-brand {
+    flex: 1;
+}
+
+.footer-logo {
     font-size: 24px;
     font-weight: 700;
-    color: #195ad4;
-    margin-bottom: 8px;
+    color: #4a6cf7;
+    margin: 0 0 10px 0;
 }
 
-.footer__subtitle {
+.footer-logo span {
+    font-weight: 400;
+}
+
+.footer-tagline {
     color: #666;
-    margin-bottom: 32px;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
-.footer__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-    margin-bottom: 40px;
+/* Навигация (колонки) */
+.footer-nav {
+    display: flex;
+    gap: 60px; /* Расстояние между колонками */
 }
 
-.footer__column-title {
+.footer-column h3 {
     font-size: 16px;
-    font-weight: 600;
-    color: #195ad4;
-    margin-bottom: 16px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 20px;
 }
 
-.footer__links {
-    list-style: none;
+.footer-column ul {
+    list-style: none; /* Убираем точки */
     padding: 0;
     margin: 0;
 }
 
-.footer__links li {
-    margin-bottom: 8px;
+.footer-column ul li {
+    margin-bottom: 12px;
 }
 
-.footer__links a {
-    color: #666;
+.footer-column ul li a {
     text-decoration: none;
+    color: #555;
     font-size: 14px;
-    transition: color 0.2s;
+    transition: color 0.2s ease;
 }
 
-.footer__links a:hover {
-    color: #195ad4;
+.footer-column ul li a:hover {
+    color: #4a6cf7; /* Цвет при наведении */
 }
 
-.footer__bottom {
-    padding-top: 20px;
-    border-top: 1px solid #eee;
-    text-align: center;
-    color: #888;
-    font-size: 14px;
+.footer {
+    width: 100%;
+    position: relative;
+    left: 0;
+    right: 0;
+}
+
+.footer-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
 }
