@@ -21,6 +21,23 @@ if (isset($_GET['logout'])) {
     <link rel="stylesheet" href="../Style/Layouts/footer.css">
     <link rel="stylesheet" href="../Style/Components/skills.css">
     <link rel="stylesheet" href="../Style/Components/modal.css">
+    
+    <!-- Дополнительные стили для футера -->
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0 40px;
+        }
+        .skills-section {
+            flex: 1;
+        }
+        .footer {
+            margin-top: auto;
+        }
+    </style>
 </head>
 <body>
     <?php
@@ -74,7 +91,8 @@ if (isset($_GET['logout'])) {
         </div>
     </main>
 
-    
+    <!-- Футер ПОДКЛЮЧАЕТСЯ ЗДЕСЬ (внутри body) -->
+    <?php include 'footer.php'; ?>
 
     <!-- Модальное окно ВХОДА -->
     <div id="loginModal" class="modal-overlay" style="display: none;">
@@ -110,9 +128,6 @@ if (isset($_GET['logout'])) {
         </div>
     </div>
 
-
-
-    
     <!-- Модальное окно РЕГИСТРАЦИИ -->
     <div id="registerModal" class="modal-overlay" style="display: none;">
         <div class="modal-card">
@@ -150,8 +165,7 @@ if (isset($_GET['logout'])) {
             </p>
         </div>
     </div>
-
-
+    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const loginModal = document.getElementById('loginModal');
@@ -277,5 +291,5 @@ if (isset($_GET['logout'])) {
         });
     </script>
 </body>
-<?php include 'footer.php'; ?>
+
 </html>

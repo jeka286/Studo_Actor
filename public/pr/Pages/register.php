@@ -23,17 +23,11 @@ if ($password !== $confirm_password) {
     exit;
 }
 
-$check_query = "SELECT id FROM users WHERE email = '$email'";
-$check_result = mysqli_query($conn, $check_query);
-
-if (mysqli_num_rows($check_result) > 0) {
-    echo json_encode(['success' => false, 'message' => 'Пользователь с таким email уже существует']);
-    exit;
-}
-
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-$insert_query = "INSERT INTO users (full_name, email, password, date_created) 
-                 VALUES ('$full_name', '$email', '$hashed_password', NOW())";
+
+// УБРАЛ date_created - теперь работает
+$insert_query = "INSERT INTO users (full_name, email, password) 
+                 VALUES ('$full_name', '$email', '$hashed_password')";
 
 if (mysqli_query($conn, $insert_query)) {
     echo json_encode(['success' => true, 'message' => 'Регистрация успешна!']);

@@ -84,7 +84,7 @@ $user_data = mysqli_fetch_assoc($res);
         </div>
     </div>
 </header>
-
+<a href="casting.php" class="btn-card">Пройти на кастинг</a>
 <main class="main-content">
     <div class="cards-grid">
         <div class="card card-circles">
