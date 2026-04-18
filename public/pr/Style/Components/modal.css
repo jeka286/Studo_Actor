@@ -1,21 +1,16 @@
 /* modal.css */
 
-/* Фон, который затемняет страницу */
 .modal-overlay {
-    display: none; /* Скрыто по умолчанию */
+    display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный */
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
     z-index: 9999;
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(2px); /* Легкое размытие заднего фона */
+    backdrop-filter: blur(2px);
 }
 
-/* Сама карточка окна */
 .modal-card {
     background: #fff;
     padding: 35px 30px;
@@ -26,7 +21,6 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Кнопка закрытия (крестик) */
 .close-btn {
     position: absolute;
     top: 15px;
@@ -50,16 +44,14 @@
     color: #333;
 }
 
-/* Заголовок "Вход в аккаунт" */
 .modal-title {
     color: #4a6cf7;
     text-align: center;
     font-size: 24px;
-    font-weight: bold;
+    font-weight: 700;
     margin-bottom: 5px;
 }
 
-/* Подзаголовок */
 .modal-subtitle {
     color: #888;
     text-align: center;
@@ -67,7 +59,11 @@
     margin-bottom: 25px;
 }
 
-/* Поля ввода (Email, Password) */
+.modal-form {
+    display: flex;
+    flex-direction: column;
+}
+
 .modal-field {
     margin-bottom: 18px;
     display: flex;
@@ -94,7 +90,22 @@
     border-color: #4a6cf7;
 }
 
-/* Синие ссылки */
+.modal-field-password {
+    position: relative;
+}
+
+.modal-helper-link {
+    color: #4a6cf7;
+    text-decoration: none;
+    font-size: 11px;
+    align-self: flex-end;
+    margin-top: 5px;
+}
+
+.modal-helper-link:hover {
+    text-decoration: underline;
+}
+
 .blue-link {
     color: #4a6cf7;
     text-decoration: none;
@@ -105,7 +116,6 @@
     text-decoration: underline;
 }
 
-/* Чекбокс "Запомнить меня" */
 .modal-options {
     display: flex;
     align-items: center;
@@ -115,22 +125,33 @@
     color: #666;
 }
 
-/* Кнопка "Войти" */
+.modal-checkbox-label {
+    color: #154add;
+    font-size: 13px;
+}
+
 .blue-submit-btn {
     width: 85%;
     margin: 0 auto;
     display: block;
     background: #4a6cf7;
-    color: white;
+    color: #fff;
     border: none;
     padding: 14px;
     border-radius: 10px;
     cursor: pointer;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 700;
     transition: background 0.3s;
 }
 
 .blue-submit-btn:hover {
     background: #3553d1;
+}
+
+.modal-switch-text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #999;
 }

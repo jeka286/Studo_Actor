@@ -1,11 +1,10 @@
 <?php
 session_start();
 
-// Подключение к БД
-$host = '127.0.1.30'; 
-$user = 'root';      
-$pass = '';          
-$db_name = 'Golubko'; 
+$host = '127.0.1.30';
+$user = 'root';
+$pass = '';
+$db_name = 'Golubko';
 
 $conn = mysqli_connect($host, $user, $pass, $db_name);
 
@@ -13,7 +12,6 @@ if (!$conn) {
     die("Ошибка подключения: " . mysqli_connect_error());
 }
 
-// Запрос всех курсов из таблицы Courses
 $query = "SELECT * FROM Courses ORDER BY id ASC";
 $result = mysqli_query($conn, $query);
 
@@ -27,7 +25,7 @@ if (!$result) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Курсы | Студия Актера</title>
-    
+
     <link rel="stylesheet" href="../Style/Global/fonts.css">
     <link rel="stylesheet" href="../Style/Layouts/header.css">
     <link rel="stylesheet" href="../Style/Components/courses.css">
@@ -47,10 +45,8 @@ if (!$result) {
         <?php while ($course = mysqli_fetch_assoc($result)): ?>
             <div class="course-item">
                 <div class="course-image-box">
-                    <?php 
-                    // Проверяем, есть ли изображение в BLOB поле
-                    if (!empty($course['img'])): 
-                        // Преобразуем BLOB в base64 для отображения
+                    <?php
+                    if (!empty($course['img'])):
                         $imageData = base64_encode($course['img']);
                         $imageSrc = 'data:image/jpeg;base64,' . $imageData;
                     ?>
@@ -66,13 +62,12 @@ if (!$result) {
             </div>
         <?php endwhile; ?>
     <?php else: ?>
-        <div style="text-align: center; padding: 50px; color: #888;">
+        <div class="courses-empty">
             <p>Курсы пока не добавлены</p>
-            <p style="font-size: 12px; margin-top: 10px;">Добавьте данные в таблицу Courses в БД</p>
+            <p class="courses-empty-hint">Добавьте данные в таблицу Courses в БД</p>
         </div>
     <?php endif; ?>
 </div>
-
 
 </body>
 </html>

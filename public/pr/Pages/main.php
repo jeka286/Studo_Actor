@@ -14,37 +14,20 @@ if (isset($_GET['logout'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Studio Actor | Главная</title>
-    
-    <!-- Твои стили -->
+
     <link rel="stylesheet" href="../Style/Global/fonts.css">
+    <link rel="stylesheet" href="../Style/main.css">
     <link rel="stylesheet" href="../Style/Layouts/header.css">
     <link rel="stylesheet" href="../Style/Layouts/footer.css">
     <link rel="stylesheet" href="../Style/Components/skills.css">
     <link rel="stylesheet" href="../Style/Components/modal.css">
-    
-    <!-- Дополнительные стили для футера -->
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            margin: 0;
-            padding: 0 40px;
-        }
-        .skills-section {
-            flex: 1;
-        }
-        .footer {
-            margin-top: auto;
-        }
-    </style>
 </head>
-<body>
+<body class="main-page">
     <?php
-    $host = '127.0.1.30'; 
-    $user = 'root';      
-    $pass = '';          
-    $db_name = 'Golubko'; 
+    $host = '127.0.1.30';
+    $user = 'root';
+    $pass = '';
+    $db_name = 'Golubko';
 
     $conn = mysqli_connect($host, $user, $pass, $db_name);
 
@@ -59,8 +42,8 @@ if (isset($_GET['logout'])) {
         </div>
         <div class="auth-buttons">
             <?php if (isset($_SESSION['user_id'])): ?>
-                <a href="dashboard.php" class="btn" style="text-decoration: none; display: inline-block; line-height: normal;">Личный кабинет</a>
-                <a href="?logout=1" class="btn" style="text-decoration: none; display: inline-block; line-height: normal; background: #ff4757;">Выйти</a>
+                <a href="dashboard.php" class="btn btn-link">Личный кабинет</a>
+                <a href="?logout=1" class="btn btn-link btn-danger">Выйти</a>
             <?php else: ?>
                 <button class="btn" id="openLogin">Войти</button>
                 <button class="btn" id="openRegister">Зарегистрироваться</button>
@@ -70,7 +53,7 @@ if (isset($_GET['logout'])) {
 
     <main class="skills-section">
         <h2 class="section-title">Навыки, которые ты прокачаешь</h2>
-        
+
         <div class="cards-container">
             <div class="card">
                 <h3>Пластика и движение</h3>
@@ -91,81 +74,78 @@ if (isset($_GET['logout'])) {
         </div>
     </main>
 
-    <!-- Футер ПОДКЛЮЧАЕТСЯ ЗДЕСЬ (внутри body) -->
     <?php include 'footer.php'; ?>
 
-    <!-- Модальное окно ВХОДА -->
-    <div id="loginModal" class="modal-overlay" style="display: none;">
+    <div id="loginModal" class="modal-overlay">
         <div class="modal-card">
             <button class="close-btn" id="closeLogin">&times;</button>
-            
-            <h2 class="modal-title" style="color: #4a6cf7; text-align: center; margin-bottom: 5px;">Вход в аккаунт</h2>
-            <p class="modal-subtitle" style="color: #999; text-align: center; font-size: 12px; margin-bottom: 25px;">Введите свои данные для входа в сервис</p>
+
+            <h2 class="modal-title">Вход в аккаунт</h2>
+            <p class="modal-subtitle">Введите свои данные для входа в сервис</p>
 
             <form class="modal-form" id="loginForm">
-                <div class="modal-field" style="display: flex; flex-direction: column; margin-bottom: 15px;">
-                    <label style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">Email</label>
-                    <input type="email" id="loginEmail" name="email" required placeholder="example@mail.com" style="padding: 10px; border: 1px solid #dce4f5; border-radius: 8px; outline: none;">
-                </div>
-                
-                <div class="modal-field" style="display: flex; flex-direction: column; margin-bottom: 15px; position: relative;">
-                    <label style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">Password</label>
-                    <input type="password" id="loginPassword" name="password" required placeholder="••••••••" style="padding: 10px; border: 1px solid #dce4f5; border-radius: 8px; outline: none;">
-                    <a href="#" style="color: #4a6cf7; text-decoration: none; font-size: 11px; align-self: flex-end; margin-top: 5px;">Забыли пароль?</a>
+                <div class="modal-field">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" name="email" required placeholder="example@mail.com">
                 </div>
 
-                <div class="modal-options" style="display: flex; align-items: center; gap: 8px; margin: 20px 0;">
+                <div class="modal-field modal-field-password">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" name="password" required placeholder="••••••••">
+                    <a href="#" class="modal-helper-link">Забыли пароль?</a>
+                </div>
+
+                <div class="modal-options">
                     <input type="checkbox" id="remember">
-                    <label for="remember" style="color: #154add; font-size: 13px;">Запомнить меня</label>
+                    <label for="remember" class="modal-checkbox-label">Запомнить меня</label>
                 </div>
 
-                <button type="submit" id="loginSubmitBtn" style="width: 80%; margin: 0 auto; display: block; background: #4a6cf7; color: white; border: none; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: bold;">Войти</button>
+                <button type="submit" id="loginSubmitBtn" class="blue-submit-btn">Войти</button>
             </form>
 
-            <p style="text-align: center; margin-top: 20px; font-size: 12px; color: #999;">
-                Нет аккаунта? <a href="#" id="linkToRegister" style="color: #4a6cf7; text-decoration: none; font-weight: bold;">Зарегистрируйтесь</a>
+            <p class="modal-switch-text">
+                Нет аккаунта? <a href="#" id="linkToRegister" class="blue-link">Зарегистрируйтесь</a>
             </p>
         </div>
     </div>
 
-    <!-- Модальное окно РЕГИСТРАЦИИ -->
-    <div id="registerModal" class="modal-overlay" style="display: none;">
+    <div id="registerModal" class="modal-overlay">
         <div class="modal-card">
             <button class="close-btn" id="closeRegister">&times;</button>
-            
-            <h2 class="modal-title" style="color: #4a6cf7; text-align: center; margin-bottom: 5px;">Создать аккаунт</h2>
-            <p class="modal-subtitle" style="color: #999; text-align: center; font-size: 12px; margin-bottom: 25px;">Заполните форму для регистрации</p>
+
+            <h2 class="modal-title">Создать аккаунт</h2>
+            <p class="modal-subtitle">Заполните форму для регистрации</p>
 
             <form class="modal-form" id="registerForm">
-                <div class="modal-field" style="display: flex; flex-direction: column; margin-bottom: 15px;">
-                    <label style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">First & Last Name</label>
-                    <input type="text" id="fullname" name="fullname" required placeholder="Иван Иванов" style="padding: 10px; border: 1px solid #dce4f5; border-radius: 8px; outline: none;">
+                <div class="modal-field">
+                    <label>First & Last Name</label>
+                    <input type="text" id="fullname" name="fullname" required placeholder="Иван Иванов">
                 </div>
 
-                <div class="modal-field" style="display: flex; flex-direction: column; margin-bottom: 15px;">
-                    <label style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">Email</label>
-                    <input type="email" id="email" name="email" required placeholder="example@mail.com" style="padding: 10px; border: 1px solid #dce4f5; border-radius: 8px; outline: none;">
-                </div>
-                
-                <div class="modal-field" style="display: flex; flex-direction: column; margin-bottom: 15px;">
-                    <label style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">Password</label>
-                    <input type="password" id="password" name="password" required placeholder="••••••••" style="padding: 10px; border: 1px solid #dce4f5; border-radius: 8px; outline: none;">
+                <div class="modal-field">
+                    <label>Email</label>
+                    <input type="email" id="email" name="email" required placeholder="example@mail.com">
                 </div>
 
-                <div class="modal-field" style="display: flex; flex-direction: column; margin-bottom: 15px;">
-                    <label style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">Confirm Password</label>
-                    <input type="password" id="confirm_password" name="confirm_password" required placeholder="••••••••" style="padding: 10px; border: 1px solid #dce4f5; border-radius: 8px; outline: none;">
+                <div class="modal-field">
+                    <label>Password</label>
+                    <input type="password" id="password" name="password" required placeholder="••••••••">
                 </div>
 
-                <button type="submit" id="registerSubmitBtn" style="width: 80%; margin: 0 auto; display: block; background: #4a6cf7; color: white; border: none; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: bold;">Зарегистрироваться</button>
+                <div class="modal-field">
+                    <label>Confirm Password</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required placeholder="••••••••">
+                </div>
+
+                <button type="submit" id="registerSubmitBtn" class="blue-submit-btn">Зарегистрироваться</button>
             </form>
 
-            <p style="text-align: center; margin-top: 20px; font-size: 12px; color: #999;">
-                Уже есть аккаунт? <a href="#" id="linkToLogin" style="color: #4a6cf7; text-decoration: none; font-weight: bold;">Войти</a>
+            <p class="modal-switch-text">
+                Уже есть аккаунт? <a href="#" id="linkToLogin" class="blue-link">Войти</a>
             </p>
         </div>
     </div>
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const loginModal = document.getElementById('loginModal');
@@ -173,10 +153,9 @@ if (isset($_GET['logout'])) {
             const registerForm = document.getElementById('registerForm');
             const loginForm = document.getElementById('loginForm');
 
-            // Открытие окон
             const openLoginBtn = document.getElementById('openLogin');
             const openRegisterBtn = document.getElementById('openRegister');
-            
+
             if (openLoginBtn) {
                 openLoginBtn.onclick = (e) => { e.preventDefault(); loginModal.style.display = 'flex'; };
             }
@@ -184,16 +163,14 @@ if (isset($_GET['logout'])) {
                 openRegisterBtn.onclick = (e) => { e.preventDefault(); registerModal.style.display = 'flex'; };
             }
 
-            // Закрытие окон
             const closeLogin = document.getElementById('closeLogin');
             const closeRegister = document.getElementById('closeRegister');
             if (closeLogin) closeLogin.onclick = () => { loginModal.style.display = 'none'; };
             if (closeRegister) closeRegister.onclick = () => { registerModal.style.display = 'none'; };
 
-            // Переключение между окнами
             const linkToRegister = document.getElementById('linkToRegister');
             const linkToLogin = document.getElementById('linkToLogin');
-            
+
             if (linkToRegister) {
                 linkToRegister.onclick = (e) => {
                     e.preventDefault();
@@ -201,7 +178,7 @@ if (isset($_GET['logout'])) {
                     registerModal.style.display = 'flex';
                 };
             }
-            
+
             if (linkToLogin) {
                 linkToLogin.onclick = (e) => {
                     e.preventDefault();
@@ -210,26 +187,25 @@ if (isset($_GET['logout'])) {
                 };
             }
 
-            // Обработка ВХОДА
             if (loginForm) {
                 loginForm.onsubmit = async (e) => {
                     e.preventDefault();
-                    
+
                     const email = document.getElementById('loginEmail').value;
                     const password = document.getElementById('loginPassword').value;
-                    
+
                     const formData = new FormData();
                     formData.append('email', email);
                     formData.append('password', password);
-                    
+
                     try {
                         const response = await fetch('login.php', {
                             method: 'POST',
                             body: formData
                         });
-                        
+
                         const result = await response.json();
-                        
+
                         if (result.success) {
                             alert(result.message);
                             window.location.href = 'dashboard.php';
@@ -239,40 +215,39 @@ if (isset($_GET['logout'])) {
                     } catch (error) {
                         alert('Ошибка при входе: ' + error.message);
                     }
-                    
+
                     return false;
                 };
             }
 
-            // Обработка РЕГИСТРАЦИИ
             if (registerForm) {
                 registerForm.onsubmit = async (e) => {
                     e.preventDefault();
-                    
+
                     const fullname = document.getElementById('fullname').value;
                     const email = document.getElementById('email').value;
                     const password = document.getElementById('password').value;
                     const confirm_password = document.getElementById('confirm_password').value;
-                    
+
                     if (password !== confirm_password) {
                         alert('Пароли не совпадают!');
                         return false;
                     }
-                    
+
                     const formData = new FormData();
                     formData.append('fullname', fullname);
                     formData.append('email', email);
                     formData.append('password', password);
                     formData.append('confirm_password', confirm_password);
-                    
+
                     try {
                         const response = await fetch('register.php', {
                             method: 'POST',
                             body: formData
                         });
-                        
+
                         const result = await response.json();
-                        
+
                         if (result.success) {
                             alert(result.message);
                             registerModal.style.display = 'none';
@@ -284,12 +259,11 @@ if (isset($_GET['logout'])) {
                     } catch (error) {
                         alert('Ошибка при регистрации: ' + error.message);
                     }
-                    
+
                     return false;
                 };
             }
         });
     </script>
 </body>
-
 </html>

@@ -1,4 +1,4 @@
-/* casting.css - стили для страницы кастинга */
+/* casting.css */
 
 * {
     margin: 0;
@@ -18,7 +18,6 @@ body {
     padding: 60px 24px 80px;
 }
 
-/* Заголовок */
 .casting-header {
     margin-bottom: 48px;
 }
@@ -35,7 +34,6 @@ body {
     color: #666;
 }
 
-/* Форма */
 .casting-form {
     display: flex;
     flex-direction: column;
@@ -75,7 +73,6 @@ body {
     color: #bbb;
 }
 
-/* Область загрузки файла */
 .upload-area {
     border: 2px dashed #d0d5dd;
     border-radius: 16px;
@@ -177,4 +174,88 @@ body {
 .upload-area.drag-over {
     border-color: #4a6cf7;
     background: #eef3ff;
+}
+
+.visually-hidden,
+.is-hidden {
+    display: none !important;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-window {
+    background: #fff;
+    border-radius: 32px;
+    padding: 48px 40px;
+    text-align: center;
+    max-width: 420px;
+    width: 90%;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    animation: modalAppear 0.3s ease;
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-check {
+    width: 64px;
+    height: 64px;
+    background: #4caf50;
+    color: #fff;
+    font-size: 36px;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+}
+
+.modal-heading {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 16px;
+}
+
+.modal-text {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 32px;
+}
+
+.modal-ok {
+    background: #4a6cf7;
+    color: #fff;
+    border: none;
+    padding: 12px 48px;
+    border-radius: 40px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+}
+
+.modal-ok:hover {
+    background: #3a5ce0;
+    transform: translateY(-2px);
 }

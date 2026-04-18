@@ -27,6 +27,11 @@
     border-radius: 30px; /* Скругленные края */
     cursor: pointer;
     font-size: 14px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     transition: all 0.3s ease; /* Плавный переход цвета */
 }
 
