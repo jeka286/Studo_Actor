@@ -1,61 +1,66 @@
-// casting.js - логика страницы кастинга
+// casting.js - логика формы кастинга
 
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('castingForm');
+    const phoneInput = document.getElementById('phone');
+    const nameInput = document.getElementById('fullname');
     const fileInput = document.getElementById('fileInput');
     const browseBtn = document.getElementById('browseBtn');
-    const dropZone = document.getElementById('fileDropZone');
+    const uploadArea = document.getElementById('uploadArea');
     const fileInfo = document.getElementById('fileInfo');
     const fileNameSpan = document.getElementById('fileName');
     const removeFileBtn = document.getElementById('removeFileBtn');
     const modal = document.getElementById('successModal');
-    const modalOkBtn = document.getElementById('modalOkBtn');
+    const modalOk = document.getElementById('modalOkBtn');
     
     let selectedFile = null;
     
     // Открыть выбор файла
-    browseBtn.addEventListener('click', function() {
-        fileInput.click();
-    });
-    
-    // Клик по зоне для выбора файла
-    dropZone.addEventListener('click', function(e) {
-        if (e.target !== browseBtn && !browseBtn.contains(e.target)) {
+    if (browseBtn) {
+        browseBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
             fileInput.click();
-        }
-    });
+        });
+    }
+    
+    // Клик по области загрузки
+    if (uploadArea) {
+        uploadArea.addEventListener('click', function() {
+            fileInput.click();
+        });
+    }
     
     // Выбор файла
     fileInput.addEventListener('change', function(e) {
         if (e.target.files.length > 0) {
-            handleFileSelect(e.target.files[0]);
+            handleFile(e.target.files[0]);
         }
     });
     
     // Drag & drop
-    dropZone.addEventListener('dragover', function(e) {
-        e.preventDefault();
-        dropZone.classList.add('drag-over');
-    });
-    
-    dropZone.addEventListener('dragleave', function(e) {
-        e.preventDefault();
-        dropZone.classList.remove('drag-over');
-    });
-    
-    dropZone.addEventListener('drop', function(e) {
-        e.preventDefault();
-        dropZone.classList.remove('drag-over');
+    if (uploadArea) {
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            uploadArea.classList.add('drag-over');
+        });
         
-        if (e.dataTransfer.files.length > 0) {
-            handleFileSelect(e.dataTransfer.files[0]);
-        }
-    });
+        uploadArea.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+        });
+        
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+            if (e.dataTransfer.files.length > 0) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+    }
     
-    // Обработка выбранного файла
-    function handleFileSelect(file) {
+    function handleFile(file) {
         const validTypes = ['image/jpeg', 'image/png', 'application/pdf', 'video/mp4'];
-        const maxSize = 50 * 1024 * 1024; // 50MB
+        const maxSize = 50 * 1024 * 1024;
         
         if (!validTypes.includes(file.type)) {
             alert('Неподдерживаемый формат. Используйте JPEG, PNG, PDF или MP4');
@@ -69,17 +74,16 @@ document.addEventListener('DOMContentLoaded', function() {
         
         selectedFile = file;
         fileNameSpan.textContent = file.name;
+        uploadArea.style.display = 'none';
         fileInfo.style.display = 'flex';
-        dropZone.style.display = 'none';
     }
     
-    // Удалить файл
     if (removeFileBtn) {
         removeFileBtn.addEventListener('click', function() {
             selectedFile = null;
             fileInput.value = '';
+            uploadArea.style.display = 'block';
             fileInfo.style.display = 'none';
-            dropZone.style.display = 'block';
         });
     }
     
@@ -87,37 +91,45 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        const phone = document.getElementById('phone').value;
-        const fullname = document.getElementById('fullname').value;
+        const phone = phoneInput?.value.trim();
+        const fullname = nameInput?.value.trim();
         
-        // Простая валидация
-        if (!phone || !fullname) {
-            alert('Пожалуйста, заполните все поля');
+        if (!phone) {
+            alert('Пожалуйста, введите номер телефона');
+            phoneInput.focus();
             return;
         }
         
-        // Здесь можно добавить AJAX отправку на сервер
-        // Для демонстрации просто показываем модальное окно
+        if (!fullname) {
+            alert('Пожалуйста, введите ФИО');
+            nameInput.focus();
+            return;
+        }
         
         // Показать модальное окно
-        modal.style.display = 'flex';
+        if (modal) {
+            modal.style.display = 'flex';
+        }
     });
     
     // Закрыть модальное окно
-    modalOkBtn.addEventListener('click', function() {
-        modal.style.display = 'none';
-        // Очистить форму после отправки
-        form.reset();
-        selectedFile = null;
-        fileInput.value = '';
-        fileInfo.style.display = 'none';
-        dropZone.style.display = 'block';
-    });
-    
-    // Закрыть модальное окно по клику вне его
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
+    if (modalOk) {
+        modalOk.addEventListener('click', function() {
             modal.style.display = 'none';
-        }
-    });
+            form.reset();
+            selectedFile = null;
+            fileInput.value = '';
+            uploadArea.style.display = 'block';
+            fileInfo.style.display = 'none';
+        });
+    }
+    
+    // Закрыть по клику на фон
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    }
 });
