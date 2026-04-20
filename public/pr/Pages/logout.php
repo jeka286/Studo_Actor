@@ -18,7 +18,7 @@ $pass = '';
 $db_name = 'Golubko';
 $conn = mysqli_connect($host, $user, $pass, $db_name);
 
-require_once __DIR__ . '/db_helpers.php';
+require_once __DIR__ . '/../Includes/db_helpers.php';
 ensureUsersPhoneColumn($conn);
 
 $user_id = $_SESSION['user_id'];
@@ -45,7 +45,7 @@ $user_data = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Studio Actor - Личный кабинет</title>
     <link rel="stylesheet" href="../Style/Global/fonts.css">
-    <link rel="stylesheet" href="../Style/dashboard.css">
+    <link rel="stylesheet" href="../Style/Pages/dashboard.css">
     <link rel="stylesheet" href="../Style/Components/casting-modal.css">
     <link rel="stylesheet" href="../Style/Components/profile-modal.css">
 </head>
@@ -87,8 +87,8 @@ $user_data = [
     </div>
 </main>
 
-<?php include 'casting_modal.php'; ?>
-<?php include 'profile_modal.php'; ?>
+<?php include '../Includes/casting_modal.php'; ?>
+<?php include '../Includes/profile_modal.php'; ?>
 
 </body>
 </html>

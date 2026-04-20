@@ -16,7 +16,7 @@ if (isset($_GET['logout'])) {
     <title>Studio Actor | Главная</title>
 
     <link rel="stylesheet" href="../Style/Global/fonts.css">
-    <link rel="stylesheet" href="../Style/main.css">
+    <link rel="stylesheet" href="../Style/Pages/main.css">
     <link rel="stylesheet" href="../Style/Layouts/header.css">
     <link rel="stylesheet" href="../Style/Layouts/footer.css">
     <link rel="stylesheet" href="../Style/Components/skills.css">
@@ -75,7 +75,7 @@ if (isset($_GET['logout'])) {
         </div>
     </main>
 
-    <?php include 'footer.php'; ?>
+    <?php include '../Includes/footer.php'; ?>
 
     <div id="loginModal" class="modal-overlay">
         <div class="modal-card">
@@ -142,7 +142,7 @@ if (isset($_GET['logout'])) {
         </div>
     </div>
 
-    <?php include 'casting_modal.php'; ?>
+    <?php include '../Includes/casting_modal.php'; ?>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

@@ -21,7 +21,7 @@ if (!$conn) {
     exit;
 }
 
-require_once __DIR__ . '/db_helpers.php';
+require_once __DIR__ . '/../Includes/db_helpers.php';
 ensureUsersPhoneColumn($conn);
 
 mysqli_set_charset($conn, 'utf8mb4');

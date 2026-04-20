@@ -14,7 +14,7 @@ if (!$conn) {
     exit;
 }
 
-require_once __DIR__ . '/db_helpers.php';
+require_once __DIR__ . '/../Includes/db_helpers.php';
 ensureUsersPhoneColumn($conn);
 
 $email = mysqli_real_escape_string($conn, $_POST['email'] ?? '');

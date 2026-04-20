@@ -35,4 +35,4 @@
     </div>
 </div>
 
-<script src="../Scripts/profile-modal.js"></script>
+<script src="../Scripts/Components/profile-modal.js"></script>

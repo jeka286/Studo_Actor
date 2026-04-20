@@ -32,4 +32,4 @@
     </div>
 </div>
 
-<script src="../Scripts/casting-modal.js"></script>
+<script src="../Scripts/Components/casting-modal.js"></script>
