@@ -55,10 +55,11 @@ if (!$result) {
                         <div class="no-image">Нет фото</div>
                     <?php endif; ?>
                 </div>
-                <div class="course-info">
+                <a class="course-info course-link" href="course.php?id=<?php echo (int) $course['id']; ?>">
                     <h3><?php echo htmlspecialchars($course['Title']); ?></h3>
                     <p><?php echo htmlspecialchars($course['Description']); ?></p>
-                </div>
+                    <span class="course-link-hint">Подробнее</span>
+                </a>
             </div>
         <?php endwhile; ?>
     <?php else: ?>

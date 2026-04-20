@@ -2,7 +2,7 @@
     <div class="footer-container">
         <!-- Левая часть -->
         <div class="footer-brand">
-            <h2 class="footer-logo">STUDIO ACTOR</h2>
+            <h2 class="footer-logo">Studio actor</h2>
             <p class="footer-tagline">Вдохновлять вас и помогать вашему<br>таланту расти</p>
         </div>
 

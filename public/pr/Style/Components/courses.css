@@ -63,13 +63,15 @@ body {
     border-radius: 24px;
     overflow: hidden;
     height: 200px;
+    min-height: 200px;
     align-items: center;
     width: 100%;
 }
 
 .course-image-box {
-    flex: 0 0 300px;
+    flex: 0 0 290px;
     height: 100%;
+    min-height: 100%;
 }
 
 .course-image-box img {
@@ -82,19 +84,115 @@ body {
     padding: 0 50px;
     color: #ffffff;
     flex: 1;
+    overflow: hidden;
 }
 
-.course-info h3 {
-    font-size: 30px;
+.course-detail-layout {
+    gap: 14px;
+}
+
+.course-page .top-bar {
+    padding-bottom: 20px;
+}
+
+.course-page .course-item {
+    height: auto;
+    min-height: 130px;
+}
+
+.course-hero {
+    display: flex;
+    align-items: stretch;
+    background: linear-gradient(90deg, #3b5bdb 0%, #1c2c7a 100%);
+    border-radius: 24px;
+    overflow: hidden;
+    min-height: 180px;
+    width: 100%;
+}
+
+.course-hero .hero-image {
+    flex: 0 0 320px;
+    min-height: 180px;
+    height: 180px;
+}
+
+.course-hero .hero-image img {
+    object-fit: cover;
+    object-position: center;
+}
+
+.course-hero-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 40px;
+}
+
+.course-hero-info h2 {
+    color: #fff;
+    font-size: 28px;
     font-weight: 500;
-    margin-bottom: 12px;
+    text-align: center;
 }
 
-.course-info p {
-    font-size: 16px;
-    line-height: 1.5;
-    color: rgba(255, 255, 255, 0.9);
-    max-width: 90%;
+.course-task-stack {
+    display: grid;
+    gap: 14px;
+}
+
+.course-task-card {
+    background: linear-gradient(90deg, #3b5bdb 0%, #1c2c7a 100%);
+    border-radius: 24px;
+    padding: 18px 22px;
+    color: #fff;
+}
+
+.course-task-title {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.course-task-card p {
+    font-size: 13px;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.96);
+    margin: 0;
+}
+
+.course-task-goal {
+    display: block;
+    margin-top: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.96);
+}
+
+.course-link {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.course-link:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.course-link-hint {
+    display: inline-flex;
+    align-self: flex-start;
+    margin-top: 12px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.16);
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
 }
 
 .no-image {
@@ -117,4 +215,51 @@ body {
 .courses-empty-hint {
     font-size: 12px;
     margin-top: 10px;
+}
+
+@media (max-width: 900px) {
+    .course-item {
+        height: 200px;
+        min-height: 200px;
+    }
+
+    .course-image-box {
+        height: 100%;
+        min-height: 100%;
+        flex-basis: 180px;
+    }
+
+    .course-hero {
+        flex-direction: column;
+    }
+
+    .course-hero .hero-image {
+        flex-basis: auto;
+        height: 180px;
+        min-height: 180px;
+        width: 100%;
+    }
+
+    .course-hero-info {
+        justify-content: flex-start;
+        padding: 20px;
+    }
+
+    .course-hero-info h2 {
+        text-align: left;
+        font-size: 24px;
+    }
+
+    .course-task-card {
+        padding: 16px 18px;
+    }
+
+    .course-task-title {
+        font-size: 18px;
+    }
+
+    .course-task-card p,
+    .course-task-goal {
+        font-size: 14px;
+    }
 }

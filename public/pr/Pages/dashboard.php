@@ -18,9 +18,25 @@ $pass = '';
 $db_name = 'Golubko';
 $conn = mysqli_connect($host, $user, $pass, $db_name);
 
+require_once __DIR__ . '/db_helpers.php';
+ensureUsersPhoneColumn($conn);
+
 $user_id = $_SESSION['user_id'];
-$res = mysqli_query($conn, "SELECT email FROM users WHERE id = '$user_id'");
-$user_data = mysqli_fetch_assoc($res);
+$stmt = mysqli_prepare($conn, 'SELECT full_name, email, phone FROM users WHERE id = ? LIMIT 1');
+if (!$stmt) {
+    die('Database error');
+}
+mysqli_stmt_bind_param($stmt, 'i', $user_id);
+mysqli_stmt_execute($stmt);
+mysqli_stmt_bind_result($stmt, $user_full_name, $user_email, $user_phone);
+mysqli_stmt_fetch($stmt);
+mysqli_stmt_close($stmt);
+
+$user_data = [
+    'full_name' => $user_full_name ?? '',
+    'email' => $user_email ?? '',
+    'phone' => $user_phone ?? ''
+];
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -31,6 +47,8 @@ $user_data = mysqli_fetch_assoc($res);
     <link rel="stylesheet" href="../Style/Global/fonts.css">
     <link rel="stylesheet" href="../Style/dashboard.css">
     <link rel="stylesheet" href="../Style/Layouts/footer.css">
+    <link rel="stylesheet" href="../Style/Components/casting-modal.css">
+    <link rel="stylesheet" href="../Style/Components/profile-modal.css">
 </head>
 <body class="dashboard-page">
 
@@ -40,12 +58,12 @@ $user_data = mysqli_fetch_assoc($res);
         <span class="logo-subtitle">Студия Актера</span>
     </div>
     <div class="header-user">
-        <div class="user-info">
-            <span class="user-email"><?php echo htmlspecialchars($user_data['email']); ?></span>
+        <div class="user-actions">
+            <button type="button" class="profile-button" data-open-profile>Личный кабинет</button>
             <a href="?logout=1" class="logout-link">Выйти</a>
         </div>
         <div class="user-avatar">
-            <img src="https://ui-avatars.com/api?name=<?php echo urlencode($user_data['email']); ?>&background=4a6cf7&color=fff" alt="Avatar">
+            <img src="../Style/Global/default-avatar.svg" alt="Avatar">
         </div>
     </div>
 </header>
@@ -65,11 +83,13 @@ $user_data = mysqli_fetch_assoc($res);
                 <h2>Студия, где <br> рождаются звезды</h2>
                 <p>Хочешь сниматься в кино? Мы знаем, что тебе нужно.</p>
             </div>
-            <a href="casting.php" class="btn-card">Пройти на кастинг</a>
+            <button type="button" class="btn-card" data-open-casting>Пройти на кастинг</button>
         </div>
     </div>
 </main>
 
 <?php include 'footer.php'; ?>
+<?php include 'casting_modal.php'; ?>
+<?php include 'profile_modal.php'; ?>
 </body>
 </html>

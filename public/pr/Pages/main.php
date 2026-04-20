@@ -21,6 +21,7 @@ if (isset($_GET['logout'])) {
     <link rel="stylesheet" href="../Style/Layouts/footer.css">
     <link rel="stylesheet" href="../Style/Components/skills.css">
     <link rel="stylesheet" href="../Style/Components/modal.css">
+    <link rel="stylesheet" href="../Style/Components/casting-modal.css">
 </head>
 <body class="main-page">
     <?php
@@ -95,11 +96,6 @@ if (isset($_GET['logout'])) {
                     <a href="#" class="modal-helper-link">Забыли пароль?</a>
                 </div>
 
-                <div class="modal-options">
-                    <input type="checkbox" id="remember">
-                    <label for="remember" class="modal-checkbox-label">Запомнить меня</label>
-                </div>
-
                 <button type="submit" id="loginSubmitBtn" class="blue-submit-btn">Войти</button>
             </form>
 
@@ -145,6 +141,8 @@ if (isset($_GET['logout'])) {
             </p>
         </div>
     </div>
+
+    <?php include 'casting_modal.php'; ?>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
