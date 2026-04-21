@@ -54,8 +54,8 @@ $phone = '+' . $phoneDigits;
 if ($userId === null) {
     $stmt = mysqli_prepare(
         $conn,
-        'INSERT INTO castings (user_id, full_name, phone, file_path, original_file_name, mime_type, file_size, file_hash)
-         VALUES (NULL, ?, ?, NULL, NULL, NULL, NULL, NULL)'
+        "INSERT INTO castings (user_id, full_name, phone, status)
+         VALUES (NULL, ?, ?, 'new')"
     );
 
     if (!$stmt) {
@@ -66,8 +66,8 @@ if ($userId === null) {
 } else {
     $stmt = mysqli_prepare(
         $conn,
-        'INSERT INTO castings (user_id, full_name, phone, file_path, original_file_name, mime_type, file_size, file_hash)
-         VALUES (?, ?, ?, NULL, NULL, NULL, NULL, NULL)'
+        "INSERT INTO castings (user_id, full_name, phone, status)
+         VALUES (?, ?, ?, 'new')"
     );
 
     if (!$stmt) {
